@@ -1,0 +1,48 @@
+<% include ../partials/header.ejs %>
+
+<% if (products) { %>
+
+  <% for (var i = 0; i < products.length; i++) { %>
+
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="align-self-end">
+          <strong><%= products[i].item.title %></strong>
+          <label class="label label-success">$<%= products[i].price%></label>
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Action
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Remove 1 item</a>
+              <a class="dropdown-item" href="#">Remove all</a>
+            </div>
+          </div>
+        </div>
+
+        <span class="badge badge-secondary "><%= products[i].qty %></span>
+
+      </li>
+    </ul>
+
+<% } %>
+
+<h4>
+  <strong>Total: $<%= totalPrice %></strong>
+</h4>
+
+<hr />
+
+<div>
+  <button type="button" class="btn btn-success">Checkout</button>
+</div>
+
+<% } else { %>
+
+<div>
+  <p class="h1">No items in cart</p>
+</div>
+
+<% } %>
+
+<% include ../partials/footer.ejs %>
