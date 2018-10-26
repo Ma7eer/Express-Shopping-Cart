@@ -3,9 +3,13 @@
 <div class="d-flex flex-column align-items-center">
 <h1>Checkout</h1>
 <h4>You Total: $<%= totalPrice %></h4>
-<div id="payment-errors" class="alert alert-danger d-none">
 
-</div>
+<% if (noError) { %>
+  <div id="payment-errors" class="alert alert-danger d-none">
+    <%= errMsg %>
+  </div>
+<% } %>
+
 <form action="/checkout" method="post" id="checkout-form">
   <div class="form-group">
     <label for="name">Name</label>

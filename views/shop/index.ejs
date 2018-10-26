@@ -1,7 +1,11 @@
 
 <% include ../partials/header.ejs %>
 
-<div class="d-flex flex-wrap">
+<% if (successMsg) { %>
+<div class="alert alert-success"><%= successMsg %></div>
+<% } %>
+
+<div class="d-flex flex-wrap justify-content-center">
 
 <% for (var i = 0; i < products.length; i++) { %>
 
