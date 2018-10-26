@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./src/bin/www",
+    "lint": "eslint --debug src/",
+    "lint:write": "eslint --debug src/ --fix",
+    "prettier": "prettier  — write src/**/*.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -24,7 +27,12 @@
     "stripe": "^6.12.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "dotenv": "^6.1.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-babel": "^5.2.1",
+    "eslint-plugin-prettier": "^3.0.0",
     "nodemon": "^1.18.5",
     "prettier": "^1.14.3"
   }
