@@ -3,7 +3,10 @@
 <div class="d-flex flex-column align-items-center">
 <h1>Checkout</h1>
 <h4>You Total: $<%= totalPrice %></h4>
-<form action="/checkout" method="post">
+<div id="payment-errors" class="alert alert-danger d-none">
+
+</div>
+<form action="/checkout" method="post" id="checkout-form">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control form-control-sm" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
@@ -13,8 +16,8 @@
     <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Address">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Card Holder Name</label>
-    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Card Holder Name">
+    <label for="card-holder-name">Card Holder Name</label>
+    <input type="text" class="form-control form-control-sm" id="card-holder-name" aria-describedby="emailHelp" placeholder="Card Holder Name">
   </div>
   <div class="form-group">
     <label for="card-number">Credit Card Number</label>
@@ -23,22 +26,25 @@
   <div class="form-group">
   <div class="row">
   <div class="col">
-  <label for="exampleInputEmail1">Expiration Month</label>
-    <input type="text" class="form-control form-control-sm" placeholder="Month">
+  <label for="card-expiry-month">Expiration Month</label>
+    <input type="text" class="form-control form-control-sm" id="card-expiry-month" placeholder="Month">
   </div>
   <div class="col">
-  <label for="exampleInputEmail1">Expiration Year</label>
-    <input type="text" class="form-control form-control-sm" placeholder="Year">
+  <label for="card-expiry-year">Expiration Year</label>
+    <input type="text" class="form-control form-control-sm" id="card-expiry-year" placeholder="Year">
   </div>
 </div>
   </div>
 
 <div class="form-group">
-<label for="cvc">CVC</label>
-<input type="number" class="form-control form-control-sm" id="cvc" aria-describedby="emailHelp" placeholder="CVC">
+<label for="cvc-card">CVC</label>
+<input type="number" class="form-control form-control-sm" id="cvc-card" aria-describedby="emailHelp" placeholder="CVC">
 </div>
   <button type="submit" class="btn btn-success">Buy Now</button>
 </form>
 </div>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="javascripts/checkout.js"></script>
+
 
 <% include ../partials/footer.ejs %>
