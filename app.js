@@ -11,8 +11,6 @@ var flash = require('connect-flash');
 var validator = require('express-validator');
 var MongoStore = require('connect-mongo')(session);
 
-/* setting up enviroment variables */
-require('dotenv/config');
 
 var indexRouter = require('./src/routes/index');
 var userRouter = require('./src/routes/user');
@@ -20,6 +18,8 @@ var userRouter = require('./src/routes/user');
 var app = express();
 
 if (process.env.NODE_ENV == 'development') {
+  /* setting up enviroment variables */
+  require('dotenv/config');
   mongoose.connect(db.local, { useNewUrlParser: true });
 } else {
   mongoose.connect(process.env.MLAB_KEY, { useNewUrlParser: true });
