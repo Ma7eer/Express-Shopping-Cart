@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV !== 'production') {
 /* setting up enviroment variables */
 require('dotenv/config');
 }
