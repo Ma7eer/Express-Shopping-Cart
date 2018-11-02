@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db = require('./src/config/mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
@@ -15,7 +16,7 @@ var userRouter = require('./src/routes/user');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/shopping', { useNewUrlParser: true });
+mongoose.connect(db.local || db.mlab, { useNewUrlParser: true });
 require('./src/config/passport');
 
 // view engine setup
