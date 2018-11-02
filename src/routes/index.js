@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 /* setting up enviroment variables */
-require('dotenv/config');
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
