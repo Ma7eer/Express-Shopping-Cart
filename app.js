@@ -16,7 +16,7 @@ var userRouter = require('./src/routes/user');
 
 var app = express();
 
-mongoose.connect(db.local || db.mlab, { useNewUrlParser: true });
+mongoose.connect(db.local || process.env.MLAB_KEY, { useNewUrlParser: true });
 require('./src/config/passport');
 
 // view engine setup
