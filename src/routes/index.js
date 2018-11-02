@@ -1,14 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* setting up enviroment variables */
 require('dotenv/config');
 
-var stripe = require("stripe")(process.env.STRIPE_API_KEY);
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
-var Cart = require('../models/cart');
+const middleware = require('../middleware');
 
-var Product = require('../models/product');
+const Cart = require('../models/cart');
+const Product = require('../models/product');
+const Order = require('../models/order');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,7 +30,7 @@ router.get('/add-to-cart/:id', function(req, res, next) {
     }
     cart.add(product, productId);
     req.session.cart = cart;
-    console.log(req.session.cart.totalQty);
+    // console.log(req.session.cart.totalQty);
     res.redirect('/');
   })
 });
@@ -41,7 +43,7 @@ router.get('/shopping-cart', function(req, res, next) {
   res.render('shop/cart', {products: cart.generateArray(), totalPrice: cart.totalPrice});
 });
 
-router.get('/checkout', function(req, res, next) {
+router.get('/checkout', middleware.isLoggedIn, function(req, res, next) {
   if (!req.session.cart) {
     return res.redirect('shop/cart', {products: null});
   }
@@ -65,9 +67,22 @@ router.post('/checkout', function(req, res, next) {
       req.flash('error', err.message);
       res.redirect('/checkout');
     }
-    req.flash('success', 'Successfully bought product!');
-    req.session.cart = null;
-    res.redirect('/');
+    let order = new Order({
+      user: req.user, // passport places signed in user in req object\
+      cart: cart,
+      address: req.body.address,
+      name: req.body.name,
+      paymentId: charge.id
+    });
+    order.save(function(err, result) {
+      if (err) {
+        console.log(err);
+        res.redirect('/checkout');
+      }
+      req.flash('success', 'Successfully bought product!');
+      req.session.cart = null;
+      res.redirect('/');
+    });
 });
 })
 

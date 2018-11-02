@@ -3,21 +3,36 @@ var router = express.Router();
 var csrf = require('csurf');
 var passport = require('passport');
 
+const middleware = require('../middleware');
+
+const Cart = require('../models/cart');
+const Order = require('../models/order');
+
 // protect routes using csrf
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
 // go to user profile
-router.get('/profile', isLoggedIn, function(req, res, next) {
-  res.render('user/profile');
+router.get('/profile', middleware.isLoggedIn, function(req, res, next) {
+  Order.find({user: req.user}, function(err, orders) {
+    if (err) {
+      return res.write('error');
+    }
+    let cart;
+    orders.forEach(function(order) {
+      cart = new Cart(order.cart);
+      order.items = cart.generateArray();
+    });
+    res.render('user/profile', {orders: orders});
+  });
 });
 
-router.get('/logout', isLoggedIn, function(req, res, next) {
+router.get('/logout', middleware.isLoggedIn, function(req, res, next) {
   req.logout();
   res.redirect('/');
 });
 
-router.use('/', isNotLoggedIn, function(req, res, next) {
+router.use('/', middleware.isNotLoggedIn, function(req, res, next) {
   next();
 })
 
@@ -28,10 +43,17 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/user/profile',
   failureRedirect: '/user/signup',
   failureFlash: true
-}));
+}), function(req, res, next) {
+  if (req.session.oldUrl) {
+    let oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  } else {
+    res.redirect('/user/profile');
+  }
+});
 
 // sign in logic
 router.get('/signin', function(req, res, next) {
@@ -40,23 +62,16 @@ router.get('/signin', function(req, res, next) {
 });
 
 router.post('/signin', passport.authenticate('local-signin', {
-  successRedirect: '/user/profile',
   failureRedirect: '/user/signin',
   failureFlash: true
-}));
+}), function(req, res, next) {
+  if (req.session.oldUrl) {
+    let oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  } else {
+    res.redirect('/user/profile');
+  }
+});
 
 module.exports = router;
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
-
-function isNotLoggedIn(req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
