@@ -15,7 +15,6 @@ const Order = require('../models/order');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var successMsg = req.flash('success')[0];
-  console.log(process.env.STRIPE_API_KEY);
   Product.find(function(err, docs) {
     res.render('shop/index', { products: docs, successMsg: successMsg });
   });
