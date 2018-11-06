@@ -1,5 +1,6 @@
 <% include ../partials/header.ejs %>
 
+<div class="card form-card">
 <h1>Sign in</h1>
 
 <% if (messages.length > 0) { %>
@@ -9,6 +10,7 @@
 </div>
 
 <% } %>
+
 
 <form action="/user/signin" method="POST" >
   <div class="form-group">
@@ -28,5 +30,6 @@
   <button type="submit" class="btn btn-primary">Sign up</button>
 </form>
 <p>Don't have an account? <a href="/user/signup">Sign Up</a></p>
+</div>
 
 <% include ../partials/footer.ejs %>

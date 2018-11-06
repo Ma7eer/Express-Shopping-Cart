@@ -1,6 +1,7 @@
 <% include ../partials/header.ejs %>
 
-<div class="d-flex flex-column align-items-center">
+<div class="">
+<div class="d-flex flex-column align-items-center checkout">
 <h1>Checkout</h1>
 <h4>You Total: $<%= totalPrice %></h4>
 
@@ -25,7 +26,9 @@
   </div>
   <div class="form-group">
     <label for="card-number">Credit Card Number</label>
-    <input type="text" class="form-control form-control-sm" id="card-number" aria-describedby="emailHelp" placeholder="Card Number">
+    <input type="text" class="form-control form-control-sm" id="card-number"
+    aria-describedby="emailHelp" placeholder="Card Number">
+    <small class="form-text text-muted">use this mock card number: 4242 4242 4242 4242</small>
   </div>
   <div class="form-group">
   <div class="row">
@@ -46,6 +49,7 @@
 </div>
   <button type="submit" class="btn btn-success">Buy Now</button>
 </form>
+</div>
 </div>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript" src="javascripts/checkout.js"></script>

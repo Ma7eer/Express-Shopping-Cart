@@ -1,5 +1,6 @@
 <% include ../partials/header.ejs %>
 
+<div class="card form-card">
 <h1>Sign up</h1>
 
 <% if (messages.length > 0) { %>
@@ -27,5 +28,6 @@
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <button type="submit" class="btn btn-primary">Sign up</button>
 </form>
+</div>
 
 <% include ../partials/footer.ejs %>
