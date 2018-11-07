@@ -14,6 +14,7 @@ var MongoStore = require('connect-mongo')(session);
 
 var indexRouter = require('./src/routes/index');
 var userRouter = require('./src/routes/user');
+var moviesRouter = require('./src/routes/movies');
 
 var app = express();
 
@@ -41,7 +42,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 180 * 60 * 1000 }
+  cookie: { maxAge: 100 * 60 * 1000 }
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -56,6 +57,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/movies', moviesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

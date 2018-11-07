@@ -1,0 +1,26 @@
+<% include ../partials/header.ejs %>
+
+<div class="card form-card">
+<form action="/movies/add" method="POST">
+  <div class="form-group">
+    <label for="title">Movie Title</label>
+    <input type="text" class="form-control form-control-sm" id="title" placeholder="Enter movie title" name="title">
+  </div>
+  <div class="form-group">
+    <label for="image-path">Movie image URL</label>
+    <input type="text" class="form-control form-control-sm" id="image-path" placeholder="Enter image URL" name="imagePath">
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="number" class="form-control form-control-sm" id="price" placeholder="Enter movie price" name="price">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control form-control-sm" id="description" rows="3" name="description"
+    placeholder="Movie description"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+<% include ../partials/footer.ejs %>

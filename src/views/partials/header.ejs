@@ -21,6 +21,10 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="/movies/add"><i class="fas fa-film"></i>
+        Add Movies </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/shopping-cart"><i class="fas fa-shopping-cart"></i>
         Shopping Cart <% if (session.cart) { %> <span class="badge badge-secondary"><%=
@@ -40,7 +44,7 @@
       <a class="dropdown-item" href="/user/signup">Sign up</a>
       <a class="dropdown-item" href="/user/signin">Sign in</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="/user/signin">Admin</a>
+      <a class="dropdown-item" href="/user/admin">Admin</a>
       <% } %>
 
         </div>

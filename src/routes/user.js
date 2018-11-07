@@ -74,4 +74,8 @@ router.post('/signin', passport.authenticate('local-signin', {
   }
 });
 
+router.get('/admin', function(req, res, next) {
+  res.render('user/admin', {messages: '', csrfToken: req.csrfToken()});
+})
+
 module.exports = router;
