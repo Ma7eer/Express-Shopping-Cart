@@ -15,7 +15,11 @@
       <h5 class="card-title"><%= products[i]['title'] %></h5>
       <p class="card-text"><%= products[i]['description'] %></p>
       <div class="price float-left">$ <%= products[i]['price'] %></div>
-      <a href="/add-to-cart/<%= products[i]._id %>" class="btn btn-success float-right">Add to Shopping Cart</a>
+      <div class="d-flex justify-content-end">
+        <a href="/movies/delete/<%= products[i]._id %>" class="btn btn-danger btn-sm float right mr-1">Delete</a>
+        <a href="/add-to-cart/<%= products[i]._id %>" class="btn btn-success
+        btn-sm float-right">Add to Cart</a>
+      </div>
     </div>
   </div>
 

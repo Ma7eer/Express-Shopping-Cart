@@ -19,4 +19,14 @@ router.post('/add', function(req, res, next) {
   res.redirect('/');
 });
 
+router.get('/delete/:id', function(req, res, next) {
+  let movieId = req.params.id;
+  Movie.findOneAndDelete(movieId, function(err, movie) {
+    if (err) {
+      console.log(err);
+      res.redirect('/');
+    }
+    res.redirect('/');
+  })
+});
 module.exports = router;
